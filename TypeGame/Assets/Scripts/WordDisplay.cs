@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WordDisplay : MonoBehaviour
 {
     public Text text;
-    public float fallSpeed = 1f;
+    public float fallSpeed;
+
+    public void Start()
+    {
+        fallSpeed = PlayerPrefs.GetFloat("FallSpeed");
+    }
 
     public void SetWord (string word)
     {
@@ -27,5 +31,10 @@ public class WordDisplay : MonoBehaviour
     private void Update()
     {
         transform.Translate(0f, -fallSpeed * Time.deltaTime, 0f);
+
+        if (text.transform.position.y <= -5f)
+        {
+            SceneManager.LoadScene("Credit Screen");
+        }
     }
 }
